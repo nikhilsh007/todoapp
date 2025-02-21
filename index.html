@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="src/output.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body class="h-screen flex items-center justify-center bg-[#0D1117]">
+    <div class="bg-[#161A20] text-white font-bold text-2xl space-y-16 p-4 rounded-md">
+        <h2 class="text-center">Todo Creator</h2>
+
+        <div class="font-thin text-xl flex items-center flex-col">
+            <div>
+            <input type="text" placeholder="Add Todo" class="outline-none w-[70vw] sm:w-auto p-2 rounded-sm focus:bg-transparent focus:border-2 focus:border-[#0069B9] bg-blue-300 placeholder:text-black">
+            <button class="bg-[#0069B9] font-semibold p-2 rounded-md " onclick="addTodo()">Add</button>
+        </div>
+
+            <div id="todos">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        let todo = [];
+        function addTodo(){
+            const inputVal = document.querySelector("input").value;
+            if(inputVal.length > 0){
+                todo.push({
+                    title : inputVal
+                })
+                component();
+            }
+            else{
+                alert("No Todo to Add :-(");
+            }
+        }
+
+        function deleteTodo(index){
+            todo.splice(index,1);
+            component();
+        }
+
+
+        function component(){
+            const todos = document.getElementById("todos");
+            todos.innerHTML = "";
+            let index = 0;
+
+            todo.forEach((todoItem)=>{
+                const div = document.createElement("div");
+                const span = document.createElement("span");
+                const button = document.createElement("button");
+
+                span.innerHTML = todoItem.title;
+                button.innerHTML = "Delete";
+
+                div.appendChild(span);
+                div.appendChild(button);
+                div.setAttribute("id",index);
+                button.setAttribute("onclick",`deleteTodo(${index})`);
+
+                // styling
+                div.classList.add("flex","justify-between","p-4","bg-[#0D1117]","mt-4","rounded-lg","text-sm","text-wrap")
+
+                button.classList.add("bg-[#780606]","px-2","py-1","rounded-md","font-semibold","text-[FAF9F6]","ml-4")
+                span.classList.add("text-md","font-bold","max-w-44","text-pretty","h-auto","my-auto")
+
+                todos.appendChild(div);
+                index++;
+            })
+        }
+
+
+    </script>
+</body>
+    
+
+</html>
