@@ -24,6 +24,11 @@
     </div>
     <script>
         let todo = [];
+         document.querySelector("input").addEventListener("keydown",(e)=>{
+            if(e.key === "Enter"){
+                addTodo();
+            }
+        })
         function addTodo(){
             const inputVal = document.querySelector("input").value;
             if(inputVal.length > 0){
